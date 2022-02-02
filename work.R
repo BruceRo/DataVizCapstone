@@ -101,4 +101,26 @@ df_2015 <- df %>% filter(Year == 2015)
 ggplot(filter(df_major_cat_long, Year == 2020), aes(y = Millions_dollars, color = TaxCode)) +
   geom_boxplot()
 
+fig3_dat <- inner_join(pop_data, df_sub_cat_long)
+fig3_dat <- fig3_dat %>% 
+  mutate(perCapitaTax = round(Millions_dollars/Population*1000000)) %>% 
+  filter(State == "MA")
+fig3_dat$Year <- as.factor(fig3_dat$Year)
+fig3_dat$TaxName <- as.factor(fig3_dat$TaxName)
+
+ggplot(fig3_dat, aes(x = perCapitaTax, y = TaxName)) +
+  geom_line(aes(group = TaxName)) +
+  geom_point(aes(color = Year), size = 4)
+
+
+
+
+
+
+
+
+
+
+
+
 
